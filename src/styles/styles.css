@@ -109,7 +109,7 @@ html {
   height: 100%;
   min-height: 0;
   background-color: var(--primary-bg-color);
-  border-right: 2px solid black;
+  border-right: 2px solid grey;
 }
 
 .status-bar {
@@ -119,7 +119,7 @@ html {
   justify-content: space-between;
   padding: 0 2rem 0 2rem;
   background-color: var(--bid-bg-color);
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid grey;
 }
 
 .timer {
@@ -201,7 +201,7 @@ html {
   flex-direction: column;
   background-color: var(--info-bg-color);
   padding: 1rem;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid grey;
   overflow-y: auto;
   min-height: 0;
 }
@@ -258,23 +258,29 @@ html {
 .controls-field {
   font-family: var(--theme-font-family);
   background-color: var(--bid-bg-color);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  padding: 0 1rem 1rem 1rem;
-  overflow-y: auto;
+  display: grid;
+  grid-template-rows: 2fr 3fr 3fr 2fr;
   min-height: 0;
+}
+
+.controls-field > * {
+  outline: 1px solid grey;
 }
 
 .players-container {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
 }
 
 .player-container {
-  width: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 10rem;
+  height: 6rem;
   font-size: 1.5rem;
-  border: 1px solid black;
+  border: 2px solid black;
   border-radius: 0.5rem;
   padding: 1rem;
   text-align: center;
@@ -284,18 +290,19 @@ html {
   border-bottom: 1px solid black;
 }
 
-.controls-field h2 {
+.controls-field h1 {
+  padding: 1.2rem;
   text-align: center;
-  border-bottom: 1px solid black;
 }
 
-.bid-buttons {
+.bid-buttons-container {
   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   padding: 0.5rem;
-  border-bottom: 1px solid black;
 }
 
-.bid-buttons button {
+.bid-buttons-container button {
   font-family: var(--theme-font-family);
   font-size: 2rem;
   margin: 0.5rem;
@@ -307,12 +314,12 @@ html {
   border-radius: 0.5rem;
 }
 
-.bid-buttons button:enabled:hover {
+.bid-buttons-container button:enabled:hover {
   cursor: pointer;
   outline: 2px solid var(--primary-brown-color);
 }
 
-.bid-buttons button:disabled {
+.bid-buttons-container button:disabled {
   background-color: var(--info-bg-color);
 }
 
@@ -320,12 +327,11 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1rem;
-  margin-top: 1rem;
+  padding: 1rem;
 }
 
 .connection-container .game-id span {
-  padding: 0.5rem;
+  padding: 0 0.5rem 0 0.5rem;
 }
 
 .correct {

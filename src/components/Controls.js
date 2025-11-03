@@ -26,7 +26,7 @@ function Controls({
 
   return (
     <div className="controls-field">
-      <h2>Ronde {gameState.round}</h2>
+      <h1>Ronde {gameState.round}</h1>
       <div className="players-container">
         <div className="player-container">
           <div className="player-name">{gameState.self.name}</div>
@@ -45,18 +45,15 @@ function Controls({
           </div>
         </div>
       </div>
-      <div className="bids-container">
-        <h2>Bieden</h2>
-        <div className="bid-buttons">
-          {[10, 20, 30, 40, 50, 0].map((value) => (
-            <BidButton
-              key={value}
-              gameState={gameState}
-              value={value}
-              submitBid={submitBid}
-            />
-          ))}
-        </div>
+      <div className="bid-buttons-container">
+        {[10, 20, 30, 40, 50, 0].map((value) => (
+          <BidButton
+            key={value}
+            gameState={gameState}
+            value={value}
+            submitBid={submitBid}
+          />
+        ))}
       </div>
       <div className="connection-container">
         <div className="game-id">
