@@ -1,0 +1,333 @@
+:root {
+  --neutral-font-family: Cambria, Cochin, Georgia, Times, "Times New Roman",
+    serif;
+  --theme-font-family: "Story Script";
+  --primary-bg-color: rgb(242, 209, 154);
+  --info-bg-color: rgb(217, 215, 210);
+  --input-bg-color: rgb(169, 167, 167);
+  --bid-bg-color: rgb(221, 193, 168);
+  --primary-red-color: rgb(207, 43, 43);
+  --primary-green-color: rgb(37, 118, 37);
+  --primary-brown-color: rgb(190, 137, 46);
+  --correct-color: rgb(100, 187, 136);
+  --incorrect-color: rgb(183, 96, 96);
+}
+
+html,
+body {
+  font-family: var(--neutral-font-family);
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--primary-bg-color);
+}
+
+.lobby-screen {
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.lobby-screen h1 {
+  font-size: 5rem;
+  font-family: var(--theme-font-family);
+}
+
+.lobby-screen h1 .red {
+  color: var(--primary-red-color);
+}
+
+.lobby-controls {
+  width: 25rem;
+  height: 10rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.lobby-controls .radio-buttons {
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.lobby-controls input,
+.lobby-controls button,
+.button-clear-error {
+  font-family: var(--neutral-font-family);
+  font-size: 1.2rem;
+  margin: 1rem;
+  padding: 1rem;
+  text-align: center;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--primary-green-color);
+  color: white;
+}
+
+.lobby-controls input {
+  background-color: var(--input-bg-color);
+}
+
+.lobby-controls input::placeholder {
+  color: var(--primary-white-color);
+}
+
+.lobby-controls button:hover,
+.button-clear-error:hover {
+  outline: 2px solid var(--primary-brown-color);
+  cursor: pointer;
+}
+
+.self-state-container {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  height: 100vh;
+}
+
+.left-field {
+  background-color: var(--primary-bg-color);
+  border-right: 2px solid black;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.questions-field {
+  font-size: 1.5rem;
+  height: 80%;
+}
+
+.questions-field input {
+  font-family: var(--neutral-font-family);
+  font-size: 1.5rem;
+}
+
+.questions-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.right-field {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  height: 100%;
+  overflow: hidden;
+}
+
+.info-field {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--info-bg-color);
+  padding: 1rem;
+  border-bottom: 2px solid black;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.info-field table {
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+.info-field tr td {
+  padding: 0.5rem 0 0.5rem 0;
+}
+
+.info-field tr:not(:last-child) td {
+  border-bottom: 1px solid rgb(160, 143, 143);
+}
+
+.info-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  padding: 8px;
+}
+
+.input-container {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+}
+
+.input-container input {
+  flex: 1;
+  padding: 6px;
+  border: none;
+  border-radius: 4px;
+}
+
+.input-container button,
+.connection-container button {
+  background-color: var(--primary-green-color);
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.input-container button:hover,
+.connection-container button:hover,
+.input-container input:focus {
+  outline: 2px solid var(--primary-brown-color);
+}
+
+.controls-field {
+  font-family: var(--theme-font-family);
+  background-color: var(--bid-bg-color);
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem 1rem 1rem;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.players-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.player-container {
+  width: 8rem;
+  font-size: 1.5rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.player-name {
+  border-bottom: 1px solid black;
+}
+
+.controls-field h2 {
+  text-align: center;
+  border-bottom: 1px solid black;
+}
+
+.bid-buttons {
+  display: flex;
+}
+
+.bid-buttons button {
+  font-family: var(--theme-font-family);
+  font-size: 2rem;
+  margin: 10px;
+  height: 5rem;
+  width: 10rem;
+  background-color: var(--primary-green-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.bid-buttons button:enabled:hover {
+  cursor: pointer;
+  outline: 2px solid var(--primary-brown-color);
+}
+
+.bid-buttons button:disabled {
+  background-color: var(--info-bg-color);
+}
+
+.question-container {
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.question-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.question-text {
+  max-width: 50rem;
+}
+
+.question-player-answer {
+  width: 20%;
+  border-radius: 10px;
+}
+
+.question-correct-answer {
+  font-size: 1.2rem;
+  height: 1rem;
+  margin: 0;
+}
+
+.connection-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid black;
+}
+
+.connection-container .game-id span {
+  padding: 0.5rem;
+}
+
+.correct {
+  background-color: var(--correct-color);
+}
+
+.incorrect {
+  background-color: var(--incorrect-color);
+}
+
+.neutral {
+  background-color: var(--input-bg-color);
+}
+
+.hidden {
+  display: none;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.error-modal {
+  position: fixed;
+  top: 30vh;
+  left: 30%;
+  width: 40%;
+  height: 15rem;
+  z-index: 20;
+  border-radius: 10px;
+  background-color: var(--info-bg-color);
+  text-align: center;
+}
+
+.error-modal h2 {
+  background: var(--primary-green-color);
+  color: white;
+  margin: 0;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.error-modal h3 {
+  margin: 2rem;
+  font-size: 1.2rem;
+}
