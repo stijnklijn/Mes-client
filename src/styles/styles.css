@@ -13,6 +13,12 @@
   --incorrect-color: rgb(183, 96, 96);
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html,
 body {
   font-family: var(--neutral-font-family);
@@ -44,7 +50,6 @@ body {
 .lobby-controls {
   width: 25rem;
   height: 10rem;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
 }
@@ -63,7 +68,7 @@ body {
   padding: 1rem;
   text-align: center;
   border: none;
-  border-radius: 10px;
+  border-radius: 1rem;
   background-color: var(--primary-green-color);
   color: white;
 }
@@ -151,29 +156,29 @@ body {
   flex: 1;
   overflow-y: auto;
   overflow-wrap: anywhere;
-  padding: 8px;
+  padding: 0.1rem;
 }
 
 .input-container {
   display: flex;
-  gap: 8px;
-  padding: 8px;
+  gap: 1rem;
+  padding: 0.5rem;
 }
 
 .input-container input {
   flex: 1;
-  padding: 6px;
+  padding: 0.5rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 0.5rem;
 }
 
 .input-container button,
 .connection-container button {
   background-color: var(--primary-green-color);
   color: white;
-  padding: 6px 12px;
+  padding: 0.5rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 0.5rem;
   cursor: pointer;
 }
 
@@ -188,6 +193,7 @@ body {
   background-color: var(--bid-bg-color);
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   padding: 0 1rem 1rem 1rem;
   overflow-y: auto;
   min-height: 0;
@@ -202,7 +208,7 @@ body {
   width: 8rem;
   font-size: 1.5rem;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   padding: 1rem;
   text-align: center;
 }
@@ -218,18 +224,20 @@ body {
 
 .bid-buttons {
   display: flex;
+  padding: 0.5rem;
+  border-bottom: 1px solid black;
 }
 
 .bid-buttons button {
   font-family: var(--theme-font-family);
   font-size: 2rem;
-  margin: 10px;
+  margin: 0.5rem;
   height: 5rem;
-  width: 10rem;
+  width: 5rem;
   background-color: var(--primary-green-color);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 0.5rem;
 }
 
 .bid-buttons button:enabled:hover {
@@ -258,7 +266,7 @@ body {
 
 .question-player-answer {
   width: 20%;
-  border-radius: 10px;
+  border-radius: 0.5rem;
 }
 
 .question-correct-answer {
@@ -273,7 +281,6 @@ body {
   align-items: center;
   padding-top: 1rem;
   margin-top: 1rem;
-  border-top: 1px solid black;
 }
 
 .connection-container .game-id span {
@@ -313,7 +320,7 @@ body {
   width: 40%;
   height: 15rem;
   z-index: 20;
-  border-radius: 10px;
+  border-radius: 1rem;
   background-color: var(--info-bg-color);
   text-align: center;
 }
@@ -322,9 +329,9 @@ body {
   background: var(--primary-green-color);
   color: white;
   margin: 0;
-  padding: 10px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  padding: 1rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
 }
 
 .error-modal h3 {
