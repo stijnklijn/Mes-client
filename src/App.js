@@ -1,6 +1,6 @@
 import "./styles/styles.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { REST_URL, WEBSOCKET_URL } from "./constants/Constants";
 
@@ -22,6 +22,15 @@ function App() {
     onConnect,
     onError
   );
+
+  useEffect(() => {
+    const isWindows = navigator.userAgent.includes("Windows");
+    if (isWindows) {
+      document.documentElement.dataset.os = "windows";
+    } else {
+      document.documentElement.dataset.os = "other";
+    }
+  }, []);
 
   async function handleStart(e) {
     e.preventDefault();
