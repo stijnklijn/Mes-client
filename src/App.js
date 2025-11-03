@@ -8,11 +8,13 @@ import Lobby from "./components/Lobby";
 import Game from "./components/Game";
 import { useStomp } from "./hooks/useStomp";
 import ErrorModal from "./components/ErrorModal";
+import useNormalizeScale from "./hooks/useNormalizedScale";
 
 const playerId = crypto.randomUUID();
 
 function App() {
-  //console.log("Trigger rebuild");
+  useNormalizeScale(32);
+
   const [name, setName] = useState("");
   const [mode, setMode] = useState("new");
   const [gameId, setGameId] = useState("");
