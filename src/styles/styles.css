@@ -24,6 +24,9 @@
 html,
 body,
 #root {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   height: 100%;
   font-family: var(--neutral-font-family);
   background-color: var(--primary-bg-color);
@@ -261,10 +264,6 @@ html {
   display: grid;
   grid-template-rows: 2fr 3fr 3fr 2fr;
   min-height: 0;
-}
-
-.controls-field > * {
-  outline: 1px solid grey;
 }
 
 .players-container {
