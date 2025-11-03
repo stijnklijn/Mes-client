@@ -4,12 +4,19 @@ function Question({ question, answer, modifyAnswer, gameState }) {
   }
 
   return (
-    <div className="question-container">
-      <div className="question-content">
-        <p className="question-text">{question.content}</p>
+    <>
+      <div className="question-cell">
+        <p className="question-content">{question.content}</p>
+        <p className="question-correct-answer">
+          {answer.correctAnswers
+            ? "Het juiste antwoord is " + answer.correctAnswers.join(" / ")
+            : ""}
+        </p>
+      </div>
+      <div className="answer-cell">
         <input
           className={
-            "question-player-answer " +
+            "answer-player-answer " +
             (answer.correct !== undefined
               ? answer.correct
                 ? "correct"
@@ -21,12 +28,7 @@ function Question({ question, answer, modifyAnswer, gameState }) {
           disabled={gameState.self.state !== "ANSWER_QUESTIONS"}
         ></input>
       </div>
-      <p className="question-correct-answer">
-        {answer.correctAnswers
-          ? "Het juiste antwoord is " + answer.correctAnswers.join(" / ")
-          : ""}
-      </p>
-    </div>
+    </>
   );
 }
 

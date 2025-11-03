@@ -15,6 +15,7 @@ import {
 import Questions from "./Questions";
 import Info from "./Info";
 import Controls from "./Controls";
+import StatusBar from "./StatusBar";
 
 function Game({
   stompClient,
@@ -34,6 +35,7 @@ function Game({
     bank: 0,
   });
   const [statusMessage, setStatusMessage] = useState("");
+  const [timer, setTimer] = useState(0);
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [info, setInfo] = useState([]);
@@ -78,15 +80,11 @@ function Game({
   }, []);
 
   const collectAnswers = useCallback(() => {
-    let time = ROUND_TIME;
+    setTimer(ROUND_TIME);
     clearTimers();
+    setStatusMessage("Beantwoord de vragen...");
     intervalRef.current = setIntervalWithoutInitialDelay(
-      () =>
-        setStatusMessage(
-          `Je hebt nog ${time--} seconde${
-            time !== 0 ? "n" : ""
-          } om de vragen te beantwoorden...`
-        ),
+      () => setTimer((prev) => prev - 1),
       1000
     );
     timeoutRef.current = setTimeout(() => {
@@ -95,20 +93,16 @@ function Game({
         destination: SUBMIT_ANSWERS_PATH,
         body: JSON.stringify(answersRef.current),
       });
-    }, ROUND_TIME * 1000);
+    }, (ROUND_TIME - 1) * 1000);
   }, [stompClient, clearTimers]);
 
   const countDown = useCallback(
     (questions) => {
-      let time = COUNT_DOWN;
+      setTimer(COUNT_DOWN);
       clearTimers();
+      setStatusMessage("De volgende ronde begint...");
       intervalRef.current = setIntervalWithoutInitialDelay(
-        () =>
-          setStatusMessage(
-            `De volgende ronde begint over ${time--} seconde${
-              time !== 0 ? "n" : ""
-            }...`
-          ),
+        () => setTimer((prev) => prev - 1),
         1000
       );
       timeoutRef.current = setTimeout(() => {
@@ -121,7 +115,7 @@ function Game({
           }))
         );
         collectAnswers();
-      }, COUNT_DOWN * 1000);
+      }, (COUNT_DOWN - 1) * 1000);
     },
     [collectAnswers, clearTimers]
   );
@@ -205,6 +199,7 @@ function Game({
   return (
     <div className="main-content">
       <div className="left-field">
+        <StatusBar statusMessage={statusMessage} timer={timer} />
         <Questions
           gameState={gameState}
           statusMessage={statusMessage}
