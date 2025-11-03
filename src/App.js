@@ -25,11 +25,7 @@ function App() {
 
   useEffect(() => {
     const isWindows = navigator.userAgent.includes("Windows");
-    if (isWindows) {
-      document.documentElement.dataset.os = "windows";
-    } else {
-      document.documentElement.dataset.os = "other";
-    }
+    document.documentElement.dataset.os = isWindows ? "windows" : "other";
   }, []);
 
   async function handleStart(e) {
