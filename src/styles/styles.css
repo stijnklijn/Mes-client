@@ -103,16 +103,13 @@ button:disabled {
 
 .main-content {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
+  grid-template-columns: 2fr 1fr;
   height: 100%;
 }
 
 .left-field {
   display: grid;
   grid-template-rows: 1fr 9fr;
-  height: 100%;
-  min-height: 0;
-  background-color: var(--color-primary);
   border-right: 1px solid black;
 }
 
@@ -121,8 +118,7 @@ button:disabled {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem 0 2rem;
-  background-color: var(--color-primary);
+  padding: 0 2rem;
   border-bottom: 1px solid black;
 }
 
@@ -147,10 +143,8 @@ button:disabled {
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-template-rows: repeat(4, 1fr);
-  gap: 0.5rem 1rem;
+  gap: 1rem;
   padding: 2rem;
-  overflow-y: auto;
-  min-height: 0;
 }
 
 .question-cell,
@@ -159,21 +153,9 @@ button:disabled {
   flex-direction: column;
 }
 
-.question-cell {
-  padding-right: 2rem;
-}
-
-.question-content,
-.question-correct-answer {
-  margin: 0.5rem;
-}
-
 .question-content {
   font-size: 1.5rem;
-}
-
-.question-correct-answer {
-  font-size: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 .answer-cell {
@@ -182,40 +164,29 @@ button:disabled {
 
 .answer-cell input {
   font-size: 1rem;
-  height: 2.5rem;
   padding: 0.5rem;
 }
 
 .right-field {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
   min-height: 0;
-}
-
-.info-field,
-.controls-field {
-  flex: 1 1 0;
-  min-height: 0;
-  overflow-y: auto;
 }
 
 .info-field {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--color-primary);
+  display: grid;
+  grid-template-rows: 9fr 1fr;
   padding: 1rem;
   border-bottom: 1px solid black;
-  overflow-y: auto;
   min-height: 0;
 }
 
 .info-field table {
   width: 100%;
-  font-size: 1.2rem;
 }
 
 .info-field tr td {
-  padding: 0.5rem 0 0.5rem 0;
+  padding: 0.5rem 0;
 }
 
 .info-field tr:not(:last-child) td {
@@ -223,10 +194,8 @@ button:disabled {
 }
 
 .info-container {
-  flex: 1;
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-wrap: anywhere;
-  padding: 0.1rem;
 }
 
 .chat-container {
@@ -246,10 +215,8 @@ button:disabled {
 }
 
 .controls-field {
-  background-color: var(--color-primary);
   display: grid;
   grid-template-rows: 2fr 3fr 3fr 2fr;
-  min-height: 0;
 }
 
 .players-container {
@@ -264,7 +231,6 @@ button:disabled {
   flex-direction: column;
   justify-content: center;
   width: 10rem;
-  height: 6rem;
   font-size: 1.5rem;
   border: 2px solid black;
   border-radius: 0.5rem;
@@ -277,7 +243,7 @@ button:disabled {
 }
 
 .controls-field h1 {
-  padding: 1.2rem;
+  padding: 1rem;
   text-align: center;
 }
 
@@ -285,7 +251,6 @@ button:disabled {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  padding: 0.5rem;
 }
 
 .bid-buttons-container button {
@@ -303,7 +268,7 @@ button:disabled {
 }
 
 .connection-container .game-id span {
-  padding: 0 0.5rem 0 0.5rem;
+  padding: 0 0.5rem;
 }
 
 .correct {
