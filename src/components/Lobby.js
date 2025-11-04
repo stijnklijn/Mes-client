@@ -19,19 +19,21 @@ function Lobby({
 
   return (
     <div className="lobby-screen">
-      <h1>
-        <span>M</span>
-        <span className="red">et </span>
-        <span>h</span>
-        <span className="red">e</span>
-        <span>t M</span>
-        <span className="red">e</span>
-        <span>s o</span>
-        <span className="red">p </span>
-        <span>T</span>
-        <span className="red">afe</span>
-        <span>l</span>
-      </h1>
+      <div className="lobby-title">
+        <h1>
+          <span>M</span>
+          <span className="red">et </span>
+          <span>h</span>
+          <span className="red">e</span>
+          <span>t M</span>
+          <span className="red">e</span>
+          <span>s o</span>
+          <span className="red">p </span>
+          <span>T</span>
+          <span className="red">afe</span>
+          <span>l</span>
+        </h1>
+      </div>
       <div className="lobby-controls">
         <input
           type="text"

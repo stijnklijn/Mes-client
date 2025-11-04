@@ -7,7 +7,7 @@ function ErrorModal({ error, setError }) {
     <div className="backdrop">
       <div className="error-modal">
         <h2>{"Fout"}</h2>
-        <h3>{error}</h3>
+        <p>{error}</p>
         <button className="button-clear-error" onClick={handleClose}>
           Sluiten
         </button>

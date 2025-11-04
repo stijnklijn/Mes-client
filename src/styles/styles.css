@@ -1,7 +1,6 @@
 :root {
   --font-family-primary: "Scope One";
-  --font-family-secondary: "Story Script";
-  --color-primary: #f2d19a;
+  --color-primary: #eed9b3;
   --color-title: #cf2b2b;
   --color-input: #b8b4b4;
   --color-accent: #caa260;
@@ -27,7 +26,6 @@ body,
   height: 100%;
   font-family: var(--font-family-primary);
   background-color: var(--color-primary);
-  overflow: hidden;
 }
 
 input {
@@ -68,33 +66,30 @@ button:disabled {
 }
 
 .lobby-screen {
-  font-size: 1.2rem;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 80vh;
 }
 
-.lobby-screen h1 {
-  font-size: 5rem;
-  font-family: var(--font-family-secondary);
+.lobby-title {
+  font-size: 2.5rem;
 }
 
-.lobby-screen h1 .red {
+.lobby-title .red {
   color: var(--color-title);
 }
 
 .lobby-controls {
-  width: 25rem;
-  height: 10rem;
+  font-size: 1.5rem;
+  width: 25%;
   display: flex;
   flex-direction: column;
 }
 
 .lobby-controls .radio-buttons {
   margin: 0 auto;
-  width: fit-content;
 }
 
 .lobby-controls input,
@@ -104,11 +99,6 @@ button:disabled {
   text-align: center;
   margin: 1rem;
   padding: 1rem;
-}
-
-.self-state-container {
-  font-size: 2rem;
-  text-align: center;
 }
 
 .main-content {
@@ -299,8 +289,7 @@ button:disabled {
 }
 
 .bid-buttons-container button {
-  font-family: var(--font-family-secondary);
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin: 0.5rem;
   height: 5rem;
   width: 5rem;
@@ -330,7 +319,7 @@ button:disabled {
 }
 
 .hidden {
-  display: none;
+  visibility: hidden;
 }
 
 .backdrop {
@@ -348,7 +337,6 @@ button:disabled {
   top: 30vh;
   left: 30%;
   width: 40%;
-  height: 15rem;
   z-index: 20;
   border-radius: 0.5rem;
   background-color: var(--color-primary);
@@ -364,7 +352,7 @@ button:disabled {
   border-top-right-radius: 0.5rem;
 }
 
-.error-modal h3 {
-  margin: 2rem;
+.error-modal p {
+  margin: 2rem 0 1rem 0;
   font-size: 1.2rem;
 }
