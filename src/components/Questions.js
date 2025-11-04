@@ -5,6 +5,7 @@ export default function Questions({
   questions,
   modifyAnswer,
   answers,
+  countDownRef,
 }) {
   return (
     <div className="questions-grid">
@@ -15,6 +16,7 @@ export default function Questions({
           answer={answers.find((a) => a.id === q.id)}
           modifyAnswer={modifyAnswer}
           gameState={gameState}
+          countDownRef={countDownRef}
         />
       ))}
     </div>

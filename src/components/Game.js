@@ -43,6 +43,7 @@ export default function Game({
   const answersRef = useRef(answers);
   const intervalRef = useRef(null);
   const timeoutRef = useRef(null);
+  const countDownRef = useRef(null);
 
   function setIntervalWithoutInitialDelay(fn, delay) {
     fn();
@@ -98,6 +99,7 @@ export default function Game({
 
   const countDown = useCallback(
     (questions) => {
+      countDownRef.current = true;
       setTimer(COUNT_DOWN);
       clearTimers();
       setStatusMessage("De volgende ronde begint...");
@@ -114,6 +116,7 @@ export default function Game({
             content: "",
           }))
         );
+        countDownRef.current = false;
         collectAnswers();
       }, (COUNT_DOWN - 1) * 1000);
     },
@@ -206,6 +209,7 @@ export default function Game({
           questions={questions}
           answers={answers}
           modifyAnswer={modifyAnswer}
+          countDownRef={countDownRef}
         />
       </div>
       <div className="right-field">

@@ -3,6 +3,7 @@ export default function Question({
   answer,
   modifyAnswer,
   gameState,
+  countDownRef,
 }) {
   function onAnswerChanged(e) {
     modifyAnswer(question.id, e.target.value);
@@ -30,10 +31,14 @@ export default function Question({
           }
           type="text"
           placeholder={
-            gameState.self.state === "ANSWER_QUESTIONS" ? "Vul antwoord in" : ""
+            gameState.self.state === "ANSWER_QUESTIONS" && !countDownRef.current
+              ? "Vul antwoord in"
+              : ""
           }
           onChange={onAnswerChanged}
-          disabled={gameState.self.state !== "ANSWER_QUESTIONS"}
+          disabled={
+            gameState.self.state !== "ANSWER_QUESTIONS" || countDownRef.current
+          }
         ></input>
       </div>
     </>
