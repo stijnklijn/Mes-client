@@ -94,7 +94,7 @@ button:disabled {
 
 .lobby-controls input,
 .lobby-controls button,
-.button-clear-error {
+.error-modal button {
   font-size: 1.2rem;
   text-align: center;
   margin: 1rem;
@@ -194,7 +194,7 @@ button:disabled {
 }
 
 .info-container {
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-wrap: anywhere;
 }
 

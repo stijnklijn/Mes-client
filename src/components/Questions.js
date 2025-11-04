@@ -1,6 +1,11 @@
 import Question from "./Question";
 
-function Questions({ gameState, questions, modifyAnswer, answers }) {
+export default function Questions({
+  gameState,
+  questions,
+  modifyAnswer,
+  answers,
+}) {
   return (
     <div className="questions-grid">
       {questions.map((q, i) => (
@@ -15,5 +20,3 @@ function Questions({ gameState, questions, modifyAnswer, answers }) {
     </div>
   );
 }
-
-export default Questions;

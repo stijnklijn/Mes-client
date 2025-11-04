@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 
 import { REST_URL, WEBSOCKET_URL } from "./constants/Constants";
 
+import useStomp from "./hooks/useStomp";
 import Lobby from "./components/Lobby";
 import Game from "./components/Game";
-import { useStomp } from "./hooks/useStomp";
 import ErrorModal from "./components/ErrorModal";
 
 const playerId = crypto.randomUUID();

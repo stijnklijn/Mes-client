@@ -17,7 +17,7 @@ import Info from "./Info";
 import Controls from "./Controls";
 import StatusBar from "./StatusBar";
 
-function Game({
+export default function Game({
   stompClient,
   name,
   setName,
@@ -223,5 +223,3 @@ function Game({
     </div>
   );
 }
-
-export default Game;

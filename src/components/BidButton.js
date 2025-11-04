@@ -1,4 +1,4 @@
-function BidButton({ gameState, value, submitBid }) {
+export default function BidButton({ gameState, value, submitBid }) {
   function onSubmitBid() {
     submitBid({ amount: value });
   }
@@ -17,5 +17,3 @@ function BidButton({ gameState, value, submitBid }) {
     </button>
   );
 }
-
-export default BidButton;

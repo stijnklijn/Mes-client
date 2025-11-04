@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Client } from "@stomp/stompjs";
 
-export function useStomp(url, onConnect, onError) {
+export default function useStomp(url, onConnect, onError) {
   const clientRef = useRef(null);
   const [connected, setConnected] = useState(false);
 

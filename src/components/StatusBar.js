@@ -1,4 +1,4 @@
-function StatusBar({ statusMessage, timer }) {
+export default function StatusBar({ statusMessage, timer }) {
   return (
     <div className="status-bar">
       <div className="status">{statusMessage}</div>
@@ -12,5 +12,3 @@ function StatusBar({ statusMessage, timer }) {
     </div>
   );
 }
-
-export default StatusBar;

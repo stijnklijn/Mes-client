@@ -1,4 +1,4 @@
-function ErrorModal({ error, setError }) {
+export default function ErrorModal({ error, setError }) {
   function handleClose() {
     setError("");
   }
@@ -6,14 +6,10 @@ function ErrorModal({ error, setError }) {
   return (
     <div className="backdrop">
       <div className="error-modal">
-        <h2>{"Fout"}</h2>
+        <h2>"Fout"</h2>
         <p>{error}</p>
-        <button className="button-clear-error" onClick={handleClose}>
-          Sluiten
-        </button>
+        <button onClick={handleClose}>Sluiten</button>
       </div>
     </div>
   );
 }
-
-export default ErrorModal;

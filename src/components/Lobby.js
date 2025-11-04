@@ -1,6 +1,6 @@
 import { GAME_ID_LENGTH, MAX_NAME_LENGTH } from "../constants/Constants";
 
-function Lobby({
+export default function Lobby({
   name,
   setName,
   mode,
@@ -38,7 +38,6 @@ function Lobby({
         <input
           type="text"
           maxLength={MAX_NAME_LENGTH}
-          id="name"
           placeholder="Vul je naam in"
           onChange={(e) => setName(e.target.value)}
         />
@@ -77,7 +76,6 @@ function Lobby({
           className={
             !hasName() || (mode === "join" && !hasGameId()) ? "hidden" : ""
           }
-          id="start"
           onClick={handleStart}
         >
           Start
@@ -86,5 +84,3 @@ function Lobby({
     </div>
   );
 }
-
-export default Lobby;

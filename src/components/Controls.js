@@ -4,7 +4,7 @@ import { faCopy, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 import BidButton from "./BidButton";
 
-function Controls({
+export default function Controls({
   gameState,
   submitBid,
   setName,
@@ -30,19 +30,17 @@ function Controls({
       <div className="players-container">
         <div className="player-container">
           <div className="player-name">{gameState.self.name}</div>
-          <div className="player-score">{gameState.self.score}</div>
+          <div>{gameState.self.score}</div>
         </div>
         <div className="player-container">
           <div className="player-name">Pot</div>
-          <div className="player-score">{gameState.bank}</div>
+          <div>{gameState.bank}</div>
         </div>
         <div className="player-container">
           <div className="player-name">
             {gameState.opponent ? gameState.opponent.name : "-"}
           </div>
-          <div className="player-score">
-            {gameState.opponent ? gameState.opponent.score : "-"}
-          </div>
+          <div>{gameState.opponent ? gameState.opponent.score : "-"}</div>
         </div>
       </div>
       <div className="bid-buttons-container">
@@ -69,5 +67,3 @@ function Controls({
     </div>
   );
 }
-
-export default Controls;

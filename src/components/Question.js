@@ -1,4 +1,9 @@
-function Question({ question, answer, modifyAnswer, gameState }) {
+export default function Question({
+  question,
+  answer,
+  modifyAnswer,
+  gameState,
+}) {
   function onAnswerChanged(e) {
     modifyAnswer(question.id, e.target.value);
   }
@@ -34,5 +39,3 @@ function Question({ question, answer, modifyAnswer, gameState }) {
     </>
   );
 }
-
-export default Question;

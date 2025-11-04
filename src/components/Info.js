@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MAX_CHAT_MESSAGE_LENGTH } from "../constants/Constants";
-function Info({ info, name, submitChatMessage }) {
+
+export default function Info({ info, name, submitChatMessage }) {
   const infoRef = useRef(null);
 
   const [chatMessage, setChatMessage] = useState("");
@@ -39,7 +40,6 @@ function Info({ info, name, submitChatMessage }) {
           type="text"
           maxLength={MAX_CHAT_MESSAGE_LENGTH}
           value={chatMessage}
-          id="chat-message"
           placeholder="Typ een bericht"
           onChange={(e) => setChatMessage(e.target.value)}
           onKeyDown={onKeyDown}
@@ -49,5 +49,3 @@ function Info({ info, name, submitChatMessage }) {
     </div>
   );
 }
-
-export default Info;
