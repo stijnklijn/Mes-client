@@ -1,16 +1,13 @@
 :root {
-  --neutral-font-family: Georgia, Arial, Helvetica, sans-serif;
-  --theme-font-family: "Story Script";
-  --timer-font-family: Arial, Helvetica, sans-serif;
-  --primary-bg-color: rgb(242, 209, 154);
-  --info-bg-color: rgb(217, 215, 210);
-  --input-bg-color: rgb(169, 167, 167);
-  --bid-bg-color: rgb(221, 193, 168);
-  --primary-red-color: rgb(207, 43, 43);
-  --primary-green-color: rgb(37, 118, 37);
-  --primary-brown-color: rgb(190, 137, 46);
-  --correct-color: rgb(100, 187, 136);
-  --incorrect-color: rgb(183, 96, 96);
+  --font-family-primary: "Scope One";
+  --font-family-secondary: "Story Script";
+  --color-primary: #f2d19a;
+  --color-title: #cf2b2b;
+  --color-input: #b8b4b4;
+  --color-accent: #caa260;
+  --color-correct: #64bb88;
+  --color-incorrect: #b76060;
+  --gradient: linear-gradient(to right, #d29f4c, #8a5e18);
 }
 
 * {
@@ -28,9 +25,46 @@ body,
 #root {
   font-size: 16px;
   height: 100%;
-  font-family: var(--neutral-font-family);
-  background-color: var(--primary-bg-color);
+  font-family: var(--font-family-primary);
+  background-color: var(--color-primary);
   overflow: hidden;
+}
+
+input {
+  font-family: var(--font-family-primary);
+  border-radius: 0.5rem;
+  background-color: var(--color-input);
+}
+
+input:disabled {
+  border: none;
+}
+
+button {
+  background-image: var(--gradient);
+  color: white;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  border: none;
+  border-radius: 0.5rem;
+  font-family: var(--font-family-primary);
+}
+
+button:enabled:hover {
+  cursor: pointer;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.45);
+  filter: brightness(1.05);
+}
+
+button:enabled:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  filter: brightness(0.95);
+}
+
+button:disabled {
+  background-image: none;
 }
 
 .lobby-screen {
@@ -44,11 +78,11 @@ body,
 
 .lobby-screen h1 {
   font-size: 5rem;
-  font-family: var(--theme-font-family);
+  font-family: var(--font-family-secondary);
 }
 
 .lobby-screen h1 .red {
-  color: var(--primary-red-color);
+  color: var(--color-title);
 }
 
 .lobby-controls {
@@ -66,29 +100,10 @@ body,
 .lobby-controls input,
 .lobby-controls button,
 .button-clear-error {
-  font-family: var(--neutral-font-family);
   font-size: 1.2rem;
+  text-align: center;
   margin: 1rem;
   padding: 1rem;
-  text-align: center;
-  border: none;
-  border-radius: 1rem;
-  background-color: var(--primary-green-color);
-  color: white;
-}
-
-.lobby-controls input {
-  background-color: var(--input-bg-color);
-}
-
-.lobby-controls input::placeholder {
-  color: var(--primary-white-color);
-}
-
-.lobby-controls button:hover,
-.button-clear-error:hover {
-  outline: 2px solid var(--primary-brown-color);
-  cursor: pointer;
 }
 
 .self-state-container {
@@ -107,31 +122,34 @@ body,
   grid-template-rows: 1fr 9fr;
   height: 100%;
   min-height: 0;
-  background-color: var(--primary-bg-color);
-  border-right: 2px solid grey;
+  background-color: var(--color-primary);
+  border-right: 1px solid black;
 }
 
 .status-bar {
-  font-size: 2rem;
+  font-variant: small-caps;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem 0 2rem;
-  background-color: var(--bid-bg-color);
-  border-bottom: 2px solid grey;
+  background-color: var(--color-primary);
+  border-bottom: 1px solid black;
 }
 
-.timer {
+.status-bar .status {
+  font-size: 3rem;
+}
+
+.status-bar .timer {
+  font-size: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: var(--timer-font-family);
   height: 4rem;
   width: 4rem;
-  background-color: var(--primary-red-color);
-  color: white;
+  background-color: var(--color-accent);
+  border: 2px solid black;
   text-align: center;
-  border: 1px solid white;
   border-radius: 50%;
 }
 
@@ -140,7 +158,7 @@ body,
   grid-template-columns: 3fr 1fr;
   grid-template-rows: repeat(4, 1fr);
   gap: 0.5rem 1rem;
-  padding: 1rem;
+  padding: 2rem;
   overflow-y: auto;
   min-height: 0;
 }
@@ -173,13 +191,9 @@ body,
 }
 
 .answer-cell input {
-  font-family: var(--neutral-font-family);
   font-size: 1rem;
-  height: 2rem;
-}
-
-.answer-player-answer {
-  border-radius: 0.5rem;
+  height: 2.5rem;
+  padding: 0.5rem;
 }
 
 .right-field {
@@ -198,9 +212,9 @@ body,
 .info-field {
   display: flex;
   flex-direction: column;
-  background-color: var(--info-bg-color);
+  background-color: var(--color-primary);
   padding: 1rem;
-  border-bottom: 2px solid grey;
+  border-bottom: 1px solid black;
   overflow-y: auto;
   min-height: 0;
 }
@@ -215,7 +229,7 @@ body,
 }
 
 .info-field tr:not(:last-child) td {
-  border-bottom: 1px solid rgb(160, 143, 143);
+  border-bottom: 1px solid black;
 }
 
 .info-container {
@@ -225,38 +239,24 @@ body,
   padding: 0.1rem;
 }
 
-.input-container {
+.chat-container {
   display: flex;
   gap: 1rem;
   padding: 0.5rem;
 }
 
-.input-container input {
+.chat-container input {
   flex: 1;
   padding: 0.5rem;
-  border: none;
-  border-radius: 0.5rem;
 }
 
-.input-container button,
+.chat-container button,
 .connection-container button {
-  background-color: var(--primary-green-color);
-  color: white;
   padding: 0.5rem;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-}
-
-.input-container button:hover,
-.connection-container button:hover,
-.input-container input:focus {
-  outline: 2px solid var(--primary-brown-color);
 }
 
 .controls-field {
-  font-family: var(--theme-font-family);
-  background-color: var(--bid-bg-color);
+  background-color: var(--color-primary);
   display: grid;
   grid-template-rows: 2fr 3fr 3fr 2fr;
   min-height: 0;
@@ -269,6 +269,7 @@ body,
 }
 
 .player-container {
+  background-color: var(--color-accent);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -298,24 +299,11 @@ body,
 }
 
 .bid-buttons-container button {
-  font-family: var(--theme-font-family);
+  font-family: var(--font-family-secondary);
   font-size: 2rem;
   margin: 0.5rem;
   height: 5rem;
   width: 5rem;
-  background-color: var(--primary-green-color);
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-}
-
-.bid-buttons-container button:enabled:hover {
-  cursor: pointer;
-  outline: 2px solid var(--primary-brown-color);
-}
-
-.bid-buttons-container button:disabled {
-  background-color: var(--info-bg-color);
 }
 
 .connection-container {
@@ -330,15 +318,15 @@ body,
 }
 
 .correct {
-  background-color: var(--correct-color);
+  background-color: var(--color-correct);
 }
 
 .incorrect {
-  background-color: var(--incorrect-color);
+  background-color: var(--color-incorrect);
 }
 
 .neutral {
-  background-color: var(--input-bg-color);
+  background-color: var(--color-input);
 }
 
 .hidden {
@@ -362,18 +350,18 @@ body,
   width: 40%;
   height: 15rem;
   z-index: 20;
-  border-radius: 1rem;
-  background-color: var(--info-bg-color);
+  border-radius: 0.5rem;
+  background-color: var(--color-primary);
   text-align: center;
 }
 
 .error-modal h2 {
-  background: var(--primary-green-color);
+  background: var(--color-accent);
   color: white;
   margin: 0;
   padding: 1rem;
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
 }
 
 .error-modal h3 {

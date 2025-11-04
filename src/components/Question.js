@@ -24,6 +24,9 @@ function Question({ question, answer, modifyAnswer, gameState }) {
               : "neutral")
           }
           type="text"
+          placeholder={
+            gameState.self.state === "ANSWER_QUESTIONS" ? "Vul antwoord in" : ""
+          }
           onChange={onAnswerChanged}
           disabled={gameState.self.state !== "ANSWER_QUESTIONS"}
         ></input>

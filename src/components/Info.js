@@ -34,7 +34,7 @@ function Info({ info, name, submitChatMessage }) {
           </tbody>
         </table>
       </div>
-      <div className="input-container">
+      <div className="chat-container">
         <input
           type="text"
           maxLength={MAX_CHAT_MESSAGE_LENGTH}
