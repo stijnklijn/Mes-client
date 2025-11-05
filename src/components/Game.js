@@ -81,38 +81,6 @@ export default function Game({
     [clearCustomInterval]
   );
 
-  const updateStatusMessage = useCallback((gameState) => {
-    setGameState(gameState);
-    switch (gameState.self.state) {
-      case "AWAIT_OPPONENT":
-        setStatusMessage("Wachten op tegenstander...");
-        break;
-      case "DO_BID":
-        setStatusMessage("Doe een bod...");
-        break;
-      case "AWAIT_BID":
-        setStatusMessage("Wachten op bod van de tegenstander...");
-        break;
-      case "END_GAME":
-        setStatusMessage("Het spel is afgelopen.");
-        break;
-      default:
-    }
-  }, []);
-
-  const collectAnswers = useCallback(() => {
-    setIntervalCoupledToSystemTime(
-      "Beantwoord de vragen...",
-      () => {
-        stompClient.publish({
-          destination: SUBMIT_ANSWERS_PATH,
-          body: JSON.stringify(answersRef.current),
-        });
-      },
-      ROUND_TIME
-    );
-  }, [stompClient, setIntervalCoupledToSystemTime]);
-
   const countDown = useCallback(
     (questions) => {
       countDownRef.current = true;
@@ -127,12 +95,48 @@ export default function Game({
             }))
           );
           countDownRef.current = false;
-          collectAnswers();
+          setIntervalCoupledToSystemTime(
+            "Beantwoord de vragen...",
+            () => {},
+            ROUND_TIME
+          );
         },
         COUNT_DOWN
       );
     },
-    [collectAnswers, setIntervalCoupledToSystemTime]
+    [setIntervalCoupledToSystemTime]
+  );
+
+  const collectAnswers = useCallback(() => {
+    stompClient.publish({
+      destination: SUBMIT_ANSWERS_PATH,
+      body: JSON.stringify(answersRef.current),
+    });
+  }, [stompClient]);
+
+  const onGameStateUpdate = useCallback(
+    (gameState) => {
+      setGameState(gameState);
+      switch (gameState.self.state) {
+        case "AWAIT_OPPONENT":
+          setStatusMessage("Wachten op tegenstander...");
+          break;
+        case "SUBMIT_ANSWERS":
+          collectAnswers();
+          break;
+        case "DO_BID":
+          setStatusMessage("Doe een bod...");
+          break;
+        case "AWAIT_BID":
+          setStatusMessage("Wachten op bod van de tegenstander...");
+          break;
+        case "END_GAME":
+          setStatusMessage("Het spel is afgelopen.");
+          break;
+        default:
+      }
+    },
+    [collectAnswers]
   );
 
   useEffect(() => {
@@ -162,7 +166,7 @@ export default function Game({
             disconnect(setName, setMode, setGameId);
             break;
           case "GAME_STATE":
-            updateStatusMessage(message.payload);
+            onGameStateUpdate(message.payload);
             break;
           case "QUESTIONS":
             countDown(message.payload);
@@ -185,7 +189,7 @@ export default function Game({
     gameId,
     name,
     stompClient,
-    updateStatusMessage,
+    onGameStateUpdate,
     countDown,
     disconnect,
     setGameId,
