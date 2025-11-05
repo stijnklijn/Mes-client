@@ -42,24 +42,36 @@ export default function Game({
 
   const answersRef = useRef(answers);
   const intervalRef = useRef(null);
-  const timeoutRef = useRef(null);
   const countDownRef = useRef(null);
 
-  function setIntervalWithoutInitialDelay(fn, delay) {
+  function setCustomInterval(fn, delay) {
     fn();
     return setInterval(fn, delay);
   }
 
-  const clearTimers = useCallback(() => {
+  const clearCustomInterval = useCallback(() => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
-    }
   }, []);
+
+  const setIntervalCoupledToSystemTime = useCallback(
+    (message, fn, time) => {
+      clearCustomInterval();
+      setStatusMessage(message);
+      const end = Date.now() + time * 1000;
+      intervalRef.current = setCustomInterval(() => {
+        const remaining = Math.round((end - Date.now()) / 1000);
+        setTimer(remaining);
+        if (Date.now() >= end) {
+          clearCustomInterval();
+          fn();
+        }
+      }, 1000);
+    },
+    [clearCustomInterval]
+  );
 
   const updateStatusMessage = useCallback((gameState) => {
     setGameState(gameState);
@@ -81,46 +93,38 @@ export default function Game({
   }, []);
 
   const collectAnswers = useCallback(() => {
-    setTimer(ROUND_TIME);
-    clearTimers();
-    setStatusMessage("Beantwoord de vragen...");
-    intervalRef.current = setIntervalWithoutInitialDelay(
-      () => setTimer((prev) => prev - 1),
-      1000
+    setIntervalCoupledToSystemTime(
+      "Beantwoord de vragen...",
+      () => {
+        stompClient.publish({
+          destination: SUBMIT_ANSWERS_PATH,
+          body: JSON.stringify(answersRef.current),
+        });
+      },
+      ROUND_TIME
     );
-    timeoutRef.current = setTimeout(() => {
-      clearTimers();
-      stompClient.publish({
-        destination: SUBMIT_ANSWERS_PATH,
-        body: JSON.stringify(answersRef.current),
-      });
-    }, (ROUND_TIME - 1) * 1000);
-  }, [stompClient, clearTimers]);
+  }, [stompClient, setIntervalCoupledToSystemTime]);
 
   const countDown = useCallback(
     (questions) => {
       countDownRef.current = true;
-      setTimer(COUNT_DOWN);
-      clearTimers();
-      setStatusMessage("De volgende ronde begint...");
-      intervalRef.current = setIntervalWithoutInitialDelay(
-        () => setTimer((prev) => prev - 1),
-        1000
+      setIntervalCoupledToSystemTime(
+        "De volgende ronde begint...",
+        () => {
+          setQuestions(questions);
+          setAnswers(
+            questions.map((q) => ({
+              id: q.id,
+              content: "",
+            }))
+          );
+          countDownRef.current = false;
+          collectAnswers();
+        },
+        COUNT_DOWN
       );
-      timeoutRef.current = setTimeout(() => {
-        clearTimers();
-        setQuestions(questions);
-        setAnswers(
-          questions.map((q) => ({
-            id: q.id,
-            content: "",
-          }))
-        );
-        countDownRef.current = false;
-        collectAnswers();
-      }, (COUNT_DOWN - 1) * 1000);
     },
-    [collectAnswers, clearTimers]
+    [collectAnswers, setIntervalCoupledToSystemTime]
   );
 
   useEffect(() => {
@@ -129,9 +133,9 @@ export default function Game({
 
   useEffect(() => {
     return () => {
-      clearTimers();
+      clearCustomInterval();
     };
-  }, [clearTimers]);
+  }, [clearCustomInterval]);
 
   useEffect(() => {
     const subscription = stompClient.subscribe(
