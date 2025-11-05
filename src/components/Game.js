@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState, useRef } from "react";
 
+import ping from "../sounds/ping";
+
 import {
   START_SCORE,
   COUNT_DOWN,
@@ -40,6 +42,7 @@ export default function Game({
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [info, setInfo] = useState([]);
+  const [soundOn, setSoundOn] = useState(false);
 
   const answersRef = useRef(answers);
   const intervalRef = useRef(null);
@@ -149,6 +152,7 @@ export default function Game({
         const message = JSON.parse(messageJson.body);
         switch (message.type) {
           case "INFO":
+            if (soundOn) ping();
             setInfo((prev) =>
               [...prev, message.payload].slice(-MAX_INFO_MESSAGES)
             );
@@ -188,6 +192,7 @@ export default function Game({
     setMode,
     setName,
     setError,
+    soundOn,
   ]);
 
   function submitBid(bid) {
@@ -226,7 +231,13 @@ export default function Game({
         />
       </div>
       <div className="right-field">
-        <Info info={info} name={name} submitChatMessage={submitChatMessage} />
+        <Info
+          info={info}
+          name={name}
+          submitChatMessage={submitChatMessage}
+          soundOn={soundOn}
+          setSoundOn={setSoundOn}
+        />
         <Controls
           gameState={gameState}
           submitBid={submitBid}

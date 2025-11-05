@@ -1,7 +1,16 @@
 import { useEffect, useRef, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faVolumeXmark, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
+
 import { MAX_CHAT_MESSAGE_LENGTH } from "../constants/Constants";
 
-export default function Info({ info, name, submitChatMessage }) {
+export default function Info({
+  info,
+  name,
+  submitChatMessage,
+  soundOn,
+  setSoundOn,
+}) {
   const infoRef = useRef(null);
 
   const [chatMessage, setChatMessage] = useState("");
@@ -14,6 +23,10 @@ export default function Info({ info, name, submitChatMessage }) {
     if (chatMessage.trim().length === 0) return;
     submitChatMessage({ name, content: chatMessage });
     setChatMessage("");
+  }
+
+  function onToggleSound() {
+    setSoundOn((prev) => !prev);
   }
 
   useEffect(() => {
@@ -45,6 +58,10 @@ export default function Info({ info, name, submitChatMessage }) {
           onKeyDown={onKeyDown}
         />
         <button onClick={onSubmitChatMessage}>Verstuur</button>
+        <button onClick={onToggleSound}>
+          {" "}
+          <FontAwesomeIcon icon={soundOn ? faVolumeHigh : faVolumeXmark} />
+        </button>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 export default function StatusBar({ statusMessage, timer, progress }) {
-  console.log("Timer: " + timer);
   return (
     <div
       className="status-bar"
