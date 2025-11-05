@@ -1,3 +1,5 @@
+import logo from "../images/knife.png";
+
 import { GAME_ID_LENGTH, MAX_NAME_LENGTH } from "../constants/Constants";
 
 export default function Lobby({
@@ -19,6 +21,9 @@ export default function Lobby({
 
   return (
     <div className="lobby-screen">
+      <div className="lobby-logo">
+        <img src={logo} alt="mes" />
+      </div>
       <div className="lobby-title">
         <h1>
           <span>M</span>
