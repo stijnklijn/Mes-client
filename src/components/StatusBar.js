@@ -1,6 +1,16 @@
-export default function StatusBar({ statusMessage, timer }) {
+export default function StatusBar({ statusMessage, timer, progress }) {
+  console.log("Timer: " + timer);
   return (
-    <div className="status-bar">
+    <div
+      className="status-bar"
+      style={{
+        background: `linear-gradient(
+    to right,
+    var(--color-accent) ${progress * 100}%,
+    var(--color-primary) ${progress * 100}% 100%
+  )`,
+      }}
+    >
       <div className="status">{statusMessage}</div>
       {timer > 0 ? (
         <div className="timer">

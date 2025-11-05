@@ -39,6 +39,9 @@ export default function Lobby({
           <span>l</span>
         </h1>
       </div>
+      <div className="lobby-undertitle">
+        <h2>Kennis- en blufquiz</h2>
+      </div>
       <div className="lobby-controls">
         <input
           type="text"

@@ -36,6 +36,7 @@ export default function Game({
   });
   const [statusMessage, setStatusMessage] = useState("");
   const [timer, setTimer] = useState(0);
+  const [progress, setProgress] = useState(0);
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [info, setInfo] = useState([]);
@@ -60,15 +61,19 @@ export default function Game({
     (message, fn, time) => {
       clearCustomInterval();
       setStatusMessage(message);
-      const end = Date.now() + time * 1000;
+      const start = Date.now();
+      const end = start + time * 1000;
+      const total = end - start;
       intervalRef.current = setCustomInterval(() => {
-        const remaining = Math.round((end - Date.now()) / 1000);
-        setTimer(remaining);
+        const elapsed = Date.now() - start;
+        const remaining = end - Date.now();
+        setProgress(elapsed / total);
+        setTimer(Math.ceil(remaining / 1000));
         if (Date.now() >= end) {
           clearCustomInterval();
           fn();
         }
-      }, 1000);
+      }, 10);
     },
     [clearCustomInterval]
   );
@@ -206,7 +211,11 @@ export default function Game({
   return (
     <div className="main-content">
       <div className="left-field">
-        <StatusBar statusMessage={statusMessage} timer={timer} />
+        <StatusBar
+          statusMessage={statusMessage}
+          timer={timer}
+          progress={progress}
+        />
         <Questions
           gameState={gameState}
           statusMessage={statusMessage}
