@@ -9,6 +9,7 @@ export const USER_QUEUE_PATH = "/user/queue";
 
 export const MAX_NAME_LENGTH = 10;
 export const GAME_ID_LENGTH = 4;
+export const MAX_ROUNDS = 4;
 export const START_SCORE = 750;
 export const COUNT_DOWN = 10;
 export const ROUND_TIME = 60;

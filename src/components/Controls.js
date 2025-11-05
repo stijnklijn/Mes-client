@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 import BidButton from "./BidButton";
+import { MAX_ROUNDS } from "../constants/Constants";
 
 export default function Controls({
   gameState,
@@ -26,7 +27,9 @@ export default function Controls({
 
   return (
     <div className="controls-field">
-      <h1>Ronde {gameState.round}</h1>
+      <h1>
+        Ronde {gameState.round} van {MAX_ROUNDS}
+      </h1>
       <div className="players-container">
         <div className="player-container">
           <div className="player-name">{gameState.self.name}</div>
