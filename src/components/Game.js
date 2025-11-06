@@ -47,6 +47,7 @@ export default function Game({
   const answersRef = useRef(answers);
   const intervalRef = useRef(null);
   const countDownRef = useRef(null);
+  const soundOnRef = useRef(soundOn);
 
   function setCustomInterval(fn, delay) {
     fn();
@@ -141,7 +142,8 @@ export default function Game({
 
   useEffect(() => {
     answersRef.current = answers;
-  }, [answers]);
+    soundOnRef.current = soundOn;
+  }, [answers, soundOn]);
 
   useEffect(() => {
     return () => {
@@ -156,7 +158,7 @@ export default function Game({
         const message = JSON.parse(messageJson.body);
         switch (message.type) {
           case "INFO":
-            if (soundOn) ping();
+            if (soundOnRef.current) ping();
             setInfo((prev) =>
               [...prev, message.payload].slice(-MAX_INFO_MESSAGES)
             );
@@ -196,7 +198,7 @@ export default function Game({
     setMode,
     setName,
     setError,
-    soundOn,
+    soundOnRef,
   ]);
 
   function submitBid(bid) {
