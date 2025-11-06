@@ -12,6 +12,8 @@ import {
   SUBMIT_BID_PATH,
   MAX_INFO_MESSAGES,
   CHAT_PATH,
+  KEEP_ALIVE_INTERVAL,
+  KEEP_ALIVE_PATH,
 } from "../constants/Constants";
 
 import Questions from "./Questions";
@@ -186,7 +188,19 @@ export default function Game({
       body: JSON.stringify({ gameId, name }),
     });
 
-    return () => subscription.unsubscribe();
+    const keepAliveInterval = setInterval(() => {
+      if (stompClient.connected) {
+        stompClient.publish({
+          destination: KEEP_ALIVE_PATH,
+          body: {},
+        });
+      }
+    }, KEEP_ALIVE_INTERVAL * 1000);
+
+    return () => {
+      clearInterval(keepAliveInterval);
+      subscription.unsubscribe();
+    };
   }, [
     gameId,
     name,
