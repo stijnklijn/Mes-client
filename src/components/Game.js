@@ -12,8 +12,8 @@ import {
   SUBMIT_BID_PATH,
   MAX_INFO_MESSAGES,
   CHAT_PATH,
-  KEEP_ALIVE_INTERVAL,
-  KEEP_ALIVE_PATH,
+  HEARTBEAT_INTERVAL,
+  HEARTBEAT_PATH,
 } from "../constants/Constants";
 
 import Questions from "./Questions";
@@ -191,11 +191,11 @@ export default function Game({
     const keepAliveInterval = setInterval(() => {
       if (stompClient.connected) {
         stompClient.publish({
-          destination: KEEP_ALIVE_PATH,
+          destination: HEARTBEAT_PATH,
           body: {},
         });
       }
-    }, KEEP_ALIVE_INTERVAL * 1000);
+    }, HEARTBEAT_INTERVAL * 1000);
 
     return () => {
       clearInterval(keepAliveInterval);
