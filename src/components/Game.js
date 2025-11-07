@@ -2,26 +2,13 @@ import { useCallback, useEffect, useState, useRef } from "react";
 
 import ping from "../sounds/ping";
 
-import {
-  START_SCORE,
-  COUNT_DOWN,
-  ROUND_TIME,
-  USER_QUEUE_PATH,
-  SUBMIT_ANSWERS_PATH,
-  JOIN_GAME_PATH,
-  SUBMIT_BID_PATH,
-  MAX_INFO_MESSAGES,
-  CHAT_PATH,
-  HEARTBEAT_INTERVAL,
-  HEARTBEAT_PATH,
-} from "../constants/Constants";
-
 import Questions from "./Questions";
 import Info from "./Info";
 import Controls from "./Controls";
 import StatusBar from "./StatusBar";
 
 export default function Game({
+  SHARED_CONSTANTS,
   stompClient,
   name,
   setName,
@@ -32,11 +19,7 @@ export default function Game({
   setError,
 }) {
   const [gameState, setGameState] = useState({
-    self: {
-      name,
-      score: START_SCORE,
-    },
-    bank: 0,
+    self: {},
   });
   const [statusMessage, setStatusMessage] = useState("");
   const [timer, setTimer] = useState(0);
@@ -101,21 +84,29 @@ export default function Game({
           setIntervalCoupledToSystemTime(
             "Beantwoord de vragen...",
             () => {},
-            ROUND_TIME
+            SHARED_CONSTANTS.ROUND_TIME
           );
         },
-        COUNT_DOWN
+        SHARED_CONSTANTS.COUNT_DOWN
       );
     },
-    [setIntervalCoupledToSystemTime]
+    [
+      SHARED_CONSTANTS.ROUND_TIME,
+      SHARED_CONSTANTS.COUNT_DOWN,
+      setIntervalCoupledToSystemTime,
+    ]
   );
 
   const collectAnswers = useCallback(() => {
     stompClient.publish({
-      destination: SUBMIT_ANSWERS_PATH,
+      destination: `${SHARED_CONSTANTS.WEBSOCKET_PUBLISH_BASE_PATH}${SHARED_CONSTANTS.SUBMIT_ANSWERS_PATH}`,
       body: JSON.stringify(answersRef.current),
     });
-  }, [stompClient]);
+  }, [
+    stompClient,
+    SHARED_CONSTANTS.WEBSOCKET_PUBLISH_BASE_PATH,
+    SHARED_CONSTANTS.SUBMIT_ANSWERS_PATH,
+  ]);
 
   const onGameStateUpdate = useCallback(
     (gameState) => {
@@ -155,14 +146,16 @@ export default function Game({
 
   useEffect(() => {
     const subscription = stompClient.subscribe(
-      USER_QUEUE_PATH,
+      `/user${SHARED_CONSTANTS.WEBSOCKET_SUBSCRIBE_BASE_PATH}`,
       (messageJson) => {
         const message = JSON.parse(messageJson.body);
         switch (message.type) {
           case "INFO":
             if (soundOnRef.current) ping();
             setInfo((prev) =>
-              [...prev, message.payload].slice(-MAX_INFO_MESSAGES)
+              [...prev, message.payload].slice(
+                -SHARED_CONSTANTS.MAX_INFO_MESSAGES
+              )
             );
             break;
           case "ERROR":
@@ -184,24 +177,30 @@ export default function Game({
     );
 
     stompClient.publish({
-      destination: JOIN_GAME_PATH,
+      destination: `${SHARED_CONSTANTS.WEBSOCKET_PUBLISH_BASE_PATH}${SHARED_CONSTANTS.JOIN_GAME_PATH}`,
       body: JSON.stringify({ gameId, name }),
     });
 
     const keepAliveInterval = setInterval(() => {
       if (stompClient.connected) {
         stompClient.publish({
-          destination: HEARTBEAT_PATH,
+          destination: `${SHARED_CONSTANTS.WEBSOCKET_PUBLISH_BASE_PATH}${SHARED_CONSTANTS.HEARTBEAT_PATH}`,
           body: {},
         });
       }
-    }, HEARTBEAT_INTERVAL * 1000);
+    }, SHARED_CONSTANTS.HEARTBEAT_INTERVAL * 1000);
 
     return () => {
       clearInterval(keepAliveInterval);
       subscription.unsubscribe();
     };
   }, [
+    SHARED_CONSTANTS.WEBSOCKET_SUBSCRIBE_BASE_PATH,
+    SHARED_CONSTANTS.WEBSOCKET_PUBLISH_BASE_PATH,
+    SHARED_CONSTANTS.JOIN_GAME_PATH,
+    SHARED_CONSTANTS.HEARTBEAT_PATH,
+    SHARED_CONSTANTS.HEARTBEAT_INTERVAL,
+    SHARED_CONSTANTS.MAX_INFO_MESSAGES,
     gameId,
     name,
     stompClient,
@@ -217,14 +216,14 @@ export default function Game({
 
   function submitBid(bid) {
     stompClient.publish({
-      destination: SUBMIT_BID_PATH,
+      destination: `${SHARED_CONSTANTS.WEBSOCKET_PUBLISH_BASE_PATH}${SHARED_CONSTANTS.SUBMIT_BID_PATH}`,
       body: JSON.stringify(bid),
     });
   }
 
   function submitChatMessage(message) {
     stompClient.publish({
-      destination: CHAT_PATH,
+      destination: `${SHARED_CONSTANTS.WEBSOCKET_PUBLISH_BASE_PATH}${SHARED_CONSTANTS.CHAT_PATH}`,
       body: JSON.stringify(message),
     });
   }
@@ -252,6 +251,7 @@ export default function Game({
       </div>
       <div className="right-field">
         <Info
+          SHARED_CONSTANTS={SHARED_CONSTANTS}
           info={info}
           name={name}
           submitChatMessage={submitChatMessage}
@@ -259,6 +259,7 @@ export default function Game({
           setSoundOn={setSoundOn}
         />
         <Controls
+          SHARED_CONSTANTS={SHARED_CONSTANTS}
           gameState={gameState}
           submitBid={submitBid}
           gameId={gameId}

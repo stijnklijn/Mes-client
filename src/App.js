@@ -2,13 +2,18 @@ import "./styles/styles.css";
 
 import { useState, useEffect } from "react";
 
-import { REST_URL, WEBSOCKET_URL } from "./constants/Constants";
+import {
+  REST_URL,
+  WEBSOCKET_URL,
+  SHARED_CONSTANTS_PATH,
+} from "./constants/Constants";
 
 import useStomp from "./hooks/useStomp";
 import Lobby from "./components/Lobby";
 import Game from "./components/Game";
 import ErrorModal from "./components/ErrorModal";
 
+let SHARED_CONSTANTS;
 const playerId = crypto.randomUUID();
 
 function App() {
@@ -32,18 +37,24 @@ function App() {
     e.preventDefault();
 
     try {
+      const res = await fetch(`${REST_URL}${SHARED_CONSTANTS_PATH}`);
+      SHARED_CONSTANTS = await res.json();
       switch (mode) {
         case "new": {
-          const res = await fetch(`${REST_URL}/create-game`);
-          const id = res.headers.get("Game-Id");
+          const res = await fetch(
+            `${REST_URL}${SHARED_CONSTANTS.CREATE_GAME_PATH}`
+          );
+          const id = res.headers.get(SHARED_CONSTANTS.GAME_ID_HEADER);
           connect();
           setGameId(id);
           break;
         }
         case "join": {
-          const res = await fetch(`${REST_URL}/can-join/${gameId}/${name}`);
+          const res = await fetch(
+            `${REST_URL}${SHARED_CONSTANTS.CAN_JOIN_PATH}/${gameId}/${name}`
+          );
           if (!res.ok) {
-            const err = res.headers.get("Error");
+            const err = res.headers.get(SHARED_CONSTANTS.ERROR_HEADER);
             setError(err);
             return;
           }
@@ -80,6 +91,7 @@ function App() {
       )}
       {connected && (
         <Game
+          SHARED_CONSTANTS={SHARED_CONSTANTS}
           stompClient={stompClient}
           playerId={playerId}
           name={name}

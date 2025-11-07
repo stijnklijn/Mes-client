@@ -2,9 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVolumeXmark, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 
-import { MAX_CHAT_MESSAGE_LENGTH } from "../constants/Constants";
-
 export default function Info({
+  SHARED_CONSTANTS,
   info,
   name,
   submitChatMessage,
@@ -51,7 +50,7 @@ export default function Info({
       <div className="chat-container">
         <input
           type="text"
-          maxLength={MAX_CHAT_MESSAGE_LENGTH}
+          maxLength={SHARED_CONSTANTS.MAX_CHAT_MESSAGE_LENGTH}
           value={chatMessage}
           placeholder="Typ een bericht"
           onChange={(e) => setChatMessage(e.target.value)}

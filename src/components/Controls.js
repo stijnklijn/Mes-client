@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 import BidButton from "./BidButton";
-import { MAX_ROUNDS } from "../constants/Constants";
 
 export default function Controls({
+  SHARED_CONSTANTS,
   gameState,
   submitBid,
   setName,
@@ -28,7 +28,7 @@ export default function Controls({
   return (
     <div className="controls-field">
       <h1>
-        Ronde {gameState.round} van {MAX_ROUNDS}
+        Ronde {gameState.round} van {SHARED_CONSTANTS.MAX_ROUNDS}
       </h1>
       <div className="players-container">
         <div className="player-container">
