@@ -15,7 +15,7 @@ export default function Question({
         <p className="question-content">{question.content}</p>
         <p className="question-correct-answer">
           {answer.correctAnswers
-            ? "Het juiste antwoord is " + answer.correctAnswers.join(" / ")
+            ? "Het juiste antwoord is " + answer.correctAnswers[0]
             : ""}
         </p>
       </div>
