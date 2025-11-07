@@ -54,8 +54,8 @@ function App() {
             `${REST_URL}${SHARED_CONSTANTS.CAN_JOIN_PATH}/${gameId}/${name}`
           );
           if (!res.ok) {
-            const err = res.headers.get(SHARED_CONSTANTS.ERROR_HEADER);
-            setError(err);
+            const err = await res.json();
+            setError(err.message);
             return;
           }
           connect();
