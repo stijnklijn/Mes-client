@@ -1,4 +1,5 @@
 export default function Question({
+  SHARED_CONSTANTS,
   question,
   answer,
   modifyAnswer,
@@ -30,6 +31,7 @@ export default function Question({
               : "neutral")
           }
           type="text"
+          maxLength={SHARED_CONSTANTS.MAX_CHAT_CONTENT_LENGTH}
           placeholder={
             gameState.self.state === "ANSWER_QUESTIONS" && !countDownRef.current
               ? "Vul antwoord in"

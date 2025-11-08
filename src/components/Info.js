@@ -50,7 +50,7 @@ export default function Info({
       <div className="chat-container">
         <input
           type="text"
-          maxLength={SHARED_CONSTANTS.MAX_CHAT_MESSAGE_LENGTH}
+          maxLength={SHARED_CONSTANTS.MAX_CHAT_CONTENT_LENGTH}
           value={chatMessage}
           placeholder="Typ een bericht"
           onChange={(e) => setChatMessage(e.target.value)}

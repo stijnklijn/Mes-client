@@ -241,6 +241,7 @@ export default function Game({
           progress={progress}
         />
         <Questions
+          SHARED_CONSTANTS={SHARED_CONSTANTS}
           gameState={gameState}
           statusMessage={statusMessage}
           questions={questions}

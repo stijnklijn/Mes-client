@@ -47,7 +47,7 @@ export default function Controls({
         </div>
       </div>
       <div className="bid-buttons-container">
-        {[10, 20, 30, 40, 50, 0].map((value) => (
+        {SHARED_CONSTANTS.ALLOWED_BIDS.map((value) => (
           <BidButton
             key={value}
             gameState={gameState}
